@@ -268,53 +268,6 @@ Node* AVL_balance(Node *listRoot)
 }
 
 /**********************************************************
-						padding
-Parameters:
-	ch: A character to output to the screen
-	n: The number of times to output that character
-	
-Return:
-	Nothing
-	
-Description:
-	This function outputs a character a number of times to 
-the screen. Often used in conjunction with structure() to 
-output specific numbers of tab characters. Used for 
-checking tree structure and debugging node errors.
-**********************************************************/
-void padding(char ch, int n) {
-    int i;
-
-    for (i = 0; i < n; ++i)
-        putchar(ch);
-}
-
-/**********************************************************
-					structure
-Parameters:
-	root: the top of a BST
-	
-Return:
-	Nothing
-	
-Description:
-	This function outputs a BST to the screen.
-**********************************************************/
-void structure(Node* root, int level) {
-    if (root == NULL) {
-        padding('\t', level);
-        puts("~");
-    } 
-    else 
-    {
-        structure(root->right, level+1);
-        padding('\t', level);
-        printf("%s\n", root->word);
-        structure(root->left, level+1);
-    }
-}
-
-/**********************************************************
 					findWord
 Parameters:
 	wordList: The top of a word list BST
@@ -345,79 +298,6 @@ int findWord(Node* wordList, char *string)
 }
 
 /**********************************************************
-					delete_word
-Parameters:
-	wordList: The top of a BST
-	word: A word to be deleted
-	
-Return:
-	A pointer to the top of the word list
-	
-Description:
-	This function finds a node and removes it from a BST. 
-This function will return a valid BST, but will not ensure 
-a balanced tree. This function works recursively to find 
-a node and perform delete operations and pointer 
-reallocation.
-**********************************************************/
-Node* delete_word(Node *wordList, char *word)
-{
-	Node *nullCheck = NULL;
-	Node *holdNodeptr = NULL;
-	if(wordList == NULL)
-		return NULL;
-
-	if(strcmp(word, wordList->word) < 0)
-	{
-		nullCheck = delete_word(wordList->left, word);
-		if(nullCheck == NULL)
-			wordList->left = NULL;
-		else if(nullCheck != wordList->left)
-			wordList->left = nullCheck;
-		return wordList;
-	}
-	else if(strcmp(word, wordList->word) > 0)
-	{
-		nullCheck = delete_word(wordList->right, word);
-		if(nullCheck == NULL)
-			wordList->right = NULL;
-		else if(nullCheck != wordList->right)
-			wordList->right = nullCheck;
-		return wordList;
-		
-	}
-	else if(strcmp(word, wordList->word) == 0)
-	{
-		if(wordList->left == NULL && wordList->right == NULL)
-		{
-			free(wordList->word);
-			free(wordList);
-			return NULL;
-		}
-		else if(wordList->left != NULL && wordList->right != NULL)
-		{
-			free(wordList->word);
-			wordList->word = malloc(sizeof(char) * (strlen((min(wordList->right))->word) + 1));
-			strcpy(wordList->word, (min(wordList->right))->word);
-			wordList->right = delete_word(wordList->right, wordList->word);
-			return wordList;
-		}
-		else //Only one child node
-		{
-			if(wordList->left != NULL)
-				holdNodeptr = wordList->left;
-			else if(wordList->right != NULL)
-				holdNodeptr = wordList->right;
-			free(wordList->word);
-			free(wordList);
-			return holdNodeptr;
-		}
-	}
-	
-	return wordList;
-}
-
-/**********************************************************
 					delete_all_words
 Parameters:
 	wordList: The top of a tree of words
@@ -440,24 +320,4 @@ void delete_all_words(Node *wordList)
 	free(wordList->word);
 	free(wordList);
 	return;
-}
-
-/**********************************************************
-						min
-Parameters:
-	tree: A pointer to the root of a BST
-Return:
-	A pointer to the smallest node in the tree
-	
-	This function returns a pointer to the node with the 
-lowest data value
-**********************************************************/
-Node* min(Node *wordList)
-{
-	if(wordList == NULL)
-		return NULL;
-	else if(wordList->left != NULL)
-		return min(wordList->left);
-	else
-		return wordList;
 }

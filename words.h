@@ -13,11 +13,7 @@ Node* createWordList(char* fileName);
 Node* addNodeToList(char *wordToAdd, Node *listRoot);
 int treeHeight(Node *listRoot);
 Node* AVL_balance(Node *listRoot);
-void padding(char ch, int n);
-void structure(Node* root, int level);
 int findWord(Node* wordList, char *string);
-Node* min(Node *wordList);
-Node* delete_word(Node *wordList, char *word);
 void delete_all_words(Node *wordList);
 
 #endif
