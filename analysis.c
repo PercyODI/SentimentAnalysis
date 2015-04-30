@@ -13,7 +13,7 @@
 #include "analysis.h"
 
 /**********************************************************
-					anaylyze_review
+		anaylyze_review
 Parameters:
 	fileName: The name of a file to analyze
 	positiveWords: The top of a BST containing positive words
@@ -87,7 +87,7 @@ int analyze_review(char *fileName, Node *positiveWords, Node *negativeWords)
 }
 
 /**********************************************************
-					count_words
+		count_words
 Parameters:
 	string: A string containing a review
 	wordList: The top of a word list

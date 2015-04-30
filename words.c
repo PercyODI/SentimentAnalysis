@@ -12,7 +12,7 @@
 #include "words.h"
 
 /**********************************************************
-					createWordList
+		createWordList
 Parameters:
 	fileName: The name of a file
 	
@@ -47,7 +47,7 @@ Node* createWordList(char* fileName)
 }
 
 /**********************************************************
-					addNodeToList
+		addNodeToList
 Parameters:
 	wordToAdd = a string containing a word to add to the list
 	listRoot = the top of a BST to add the word to
@@ -124,7 +124,7 @@ Node* addNodeToList(char *wordToAdd, Node *listRoot)
 }
 
 /**********************************************************
-						treeHeight
+		treeHeight
 Parameters:
 	listRoot: The top of a BST
 	
@@ -149,7 +149,7 @@ int treeHeight(Node *listRoot)
 }
 
 /**********************************************************
-					AVL_balance
+		AVL_balance
 Parameters:
 	listRoot: the top of a BST
 	
@@ -268,7 +268,7 @@ Node* AVL_balance(Node *listRoot)
 }
 
 /**********************************************************
-					findWord
+		findWord
 Parameters:
 	wordList: The top of a word list BST
 	string: A word to be searched for
@@ -298,7 +298,7 @@ int findWord(Node* wordList, char *string)
 }
 
 /**********************************************************
-					delete_all_words
+		delete_all_words
 Parameters:
 	wordList: The top of a tree of words
 Return:
