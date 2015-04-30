@@ -31,6 +31,7 @@ Node* createWordList(char* fileName)
 	char *wordToAdd = malloc(sizeof(char) * (MAX_WORD_SIZE + 1));
 	FILE *fp = fopen(fileName, "r");
 
+	//Check if file is valid
 	if(fp == NULL)
 	{
 		printf("Failed to open %s\nAborting\n", fileName);
@@ -38,6 +39,7 @@ Node* createWordList(char* fileName)
 		return NULL;
 	}
 
+	//Reads the file one word at a time and adds each word to the word list
 	while(fscanf(fp, "%250s", wordToAdd) != EOF)
 		root = addNodeToList(wordToAdd, root);
 
@@ -69,6 +71,8 @@ is checked and balanced.
 Node* addNodeToList(char *wordToAdd, Node *listRoot)
 {
 	Node *holdNode = NULL;
+	//When the NULL tree is reached, malloc the space for a new node
+	//and return the address of this space
 	if(listRoot == NULL)
 	{
 		Node *newNode = malloc(sizeof(Node));
@@ -88,8 +92,13 @@ Node* addNodeToList(char *wordToAdd, Node *listRoot)
 		newNode->right = NULL;
 		return newNode;
 	}
+	//If a duplicate word is found, discard it
 	else if(strcmp(wordToAdd, listRoot->word) == 0)
 		return listRoot;
+	//Traverse the tree to find appropriate spot
+	//If a new node is added, assign the appropriate pointer to 
+	//the new address
+	//Rebalance the tree after every node when returning up the stack
 	else if(strcmp(wordToAdd, listRoot->word) < 0)
 	{
 		holdNode = addNodeToList(wordToAdd, listRoot->left);
@@ -116,6 +125,7 @@ Node* addNodeToList(char *wordToAdd, Node *listRoot)
 		}
 		return AVL_balance(listRoot);
 	}
+	//If this else is reached, an error has occurred
 	else
 	{
 		printf("Error in addNodeToList");
@@ -167,9 +177,9 @@ https://www.cpp.edu/~ftang/courses/CS241/notes/self%20balance%20bst.htm
 **********************************************************/
 Node* AVL_balance(Node *listRoot)
 {
-	int leftHeight = 0,
-		rightHeight = 0,
-		balanceFactor = 0;
+	int  leftHeight = 0,
+		 rightHeight = 0,
+		 balanceFactor = 0;
 	Node *holdB = NULL,
 		 *holdC = NULL,
 		 *holdD = NULL,
